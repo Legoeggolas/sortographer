@@ -11,6 +11,7 @@ class Read:
 
     def __init__(self):
         self.reads = 0
+        self.auxreads = 0
         self.read_time = 0
 
     def compare(self, a, b):
@@ -34,17 +35,18 @@ class Write:
 
     def __init__(self):
         self.writes = 0
+        self.auxwrites = 0
         self.write_time = 0
 
-    def update(self, ls, pos, val):
+    def update(self, ls: list, pos: int, val: int, *, aux=False):
         stamp = perf_counter()
         ls[pos] = val
         self.write_time += perf_counter() - stamp
         self.writes += 1
 
-    def swap(self, ls, a, b):
+    def swap(self, ls: list, posA: int, posB: int, *, aux=False):
         stamp = perf_counter()
-        ls[a], ls[b] = ls[b], ls[a]
+        ls[posA], ls[posB] = ls[posB], ls[posA]
         self.write_time += perf_counter() - stamp
         self.writes += 2
 
